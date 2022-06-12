@@ -1,6 +1,6 @@
 locals {
   file_type_mapping = {
-    python = "py"
+    python = ".py"
   }
 
   file_path_without_extension = trimsuffix(var.source_path, local.file_type_mapping[regex("(.*)\\d\\.\\d", var.runtime)[0]])
@@ -38,13 +38,13 @@ resource "random_id" "this" {
 data "archive_file" "this" {
   type             = "zip"
   source_file      = var.source_path
-  output_path      = var.output_path
+  output_path      = local.output_path
   output_file_mode = "0666"
 }
 
 resource "aws_lambda_function" "this" {
   function_name    = "${var.name}-${random_id.this.hex}"
-  filename         = var.output_path
+  filename         = local.output_path
   source_code_hash = data.archive_file.this.output_base64sha256
   handler          = var.handler
   role             = var.iam_role_arn == null ? aws_iam_role.this[0].arn : var.iam_role_arn
