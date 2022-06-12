@@ -37,12 +37,14 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_description"></a> [description](#input\_description) | Description of what the lambda function does. | `string` | `null` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | ENV variable mappings. | `object({ variable = map(string) })` | `null` | no |
+| <a name="input_environment_variables"></a> [environment\_variables](#input\_environment\_variables) | ENV variable mappings. | `map(string)` | `null` | no |
 | <a name="input_handler"></a> [handler](#input\_handler) | Lambda handler function. | `string` | n/a | yes |
 | <a name="input_iam_role_arn"></a> [iam\_role\_arn](#input\_iam\_role\_arn) | The ARN of the IAM role used for lambda execution. | `string` | `null` | no |
+| <a name="input_kms_key_arn"></a> [kms\_key\_arn](#input\_kms\_key\_arn) | Amazon Resource Name (ARN) of the AWS Key Management Service (KMS) key that is used to encrypt environment variables. | `string` | `null` | no |
 | <a name="input_memory_size"></a> [memory\_size](#input\_memory\_size) | Memory allocated to the lambda function. | `number` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | Default name for the resources. | `string` | n/a | yes |
 | <a name="input_output_path"></a> [output\_path](#input\_output\_path) | Location for the output file path. | `string` | `null` | no |
+| <a name="input_reserved_concurrent_executions"></a> [reserved\_concurrent\_executions](#input\_reserved\_concurrent\_executions) | Amount of reserved concurrent executions for this lambda function. | `number` | `null` | no |
 | <a name="input_runtime"></a> [runtime](#input\_runtime) | Lambda runtime. | `string` | n/a | yes |
 | <a name="input_source_path"></a> [source\_path](#input\_source\_path) | Location of the source file path. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional resource tags to apply to applicable resources. Format: {"key" = "value"}. | `map(string)` | `{}` | no |

@@ -36,9 +36,9 @@ variable "timeout" {
   default     = 3
 }
 
-variable "environment" {
+variable "environment_variables" {
   description = "ENV variable mappings."
-  type        = object({ variable = map(string) })
+  type        = map(string)
   default     = null
 }
 
@@ -48,11 +48,22 @@ variable "description" {
   default     = null
 }
 
+variable "reserved_concurrent_executions" {
+  description = "Amount of reserved concurrent executions for this lambda function."
+  type        = number
+  default     = null
+}
+
+variable "kms_key_arn" {
+  description = "Amazon Resource Name (ARN) of the AWS Key Management Service (KMS) key that is used to encrypt environment variables."
+  type        = string
+  default     = null
+}
+
 variable "memory_size" {
   description = "Memory allocated to the lambda function."
   type        = number
   default     = null
-
 }
 
 variable "source_path" {

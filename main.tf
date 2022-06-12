@@ -43,21 +43,26 @@ data "archive_file" "this" {
 }
 
 resource "aws_lambda_function" "this" {
-  function_name    = "${var.name}-${random_id.this.hex}"
-  filename         = local.output_path
-  source_code_hash = data.archive_file.this.output_base64sha256
-  handler          = var.handler
-  role             = var.iam_role_arn == null ? aws_iam_role.this[0].arn : var.iam_role_arn
-  runtime          = var.runtime
-  timeout          = var.timeout
-  description      = var.description
-  memory_size      = var.memory_size
+  # checkov:skip=CKV_AWS_117:No vpc.
+  # checkov:skip=CKV_AWS_50:No x-ray.
+  # checkov:skip=CKV_AWS_116:No dlq.
+  function_name                  = "${var.name}-${random_id.this.hex}"
+  filename                       = local.output_path
+  source_code_hash               = data.archive_file.this.output_base64sha256
+  handler                        = var.handler
+  role                           = var.iam_role_arn == null ? aws_iam_role.this[0].arn : var.iam_role_arn
+  runtime                        = var.runtime
+  timeout                        = var.timeout
+  description                    = var.description
+  memory_size                    = var.memory_size
+  reserved_concurrent_executions = var.reserved_concurrent_executions
+  kms_key_arn                    = var.kms_key_arn
 
   dynamic "environment" {
-    for_each = var.environment == null ? {} : var.environment
+    for_each = var.environment_variables == null ? {} : var.environment_variables
 
     content {
-      variables = environment.variables
+      variables = var.environment_variables
     }
   }
 
