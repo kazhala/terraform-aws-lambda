@@ -2,7 +2,7 @@ output "aws_iam_role" {
   description = "Outputs of the IAM role created for lambda."
 
   value = {
-    this = var.iam_role_arn == null ? aws_iam_role.this : null
+    this = var.iam_role_arn == null ? aws_iam_role.this[0] : null
   }
 }
 
